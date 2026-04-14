@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b8goapg35n6ji"]
+
+[ext_resource type="Script" uid="uid://b5k1pevh0fdhb" path="res://scripts/enemy.gd" id="1_md0e3"]
+[ext_resource type="Texture2D" uid="uid://4852ofgxe1rk" path="res://Chess assests/Chess Pieces/black_rook.png" id="2_md0e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
+size = Vector2(14, 18)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1872568917]
+script = ExtResource("1_md0e3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=302634413]
+texture = ExtResource("2_md0e3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=727891724]
+shape = SubResource("RectangleShape2D_md0e3")
