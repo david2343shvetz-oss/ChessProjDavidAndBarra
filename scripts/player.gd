@@ -9,7 +9,7 @@ const MOVE_TIME = 0.2   # how long the movement animation takes
 # =========================
 # REFERENCES
 # =========================
-@onready var tile_map: TileMap = $"../TileMap"
+var tile_map: TileMap
 @onready var enemy: CharacterBody2D = $"../Enemies/Enemy"
 
 # =========================
@@ -23,6 +23,10 @@ var grid = []
 # INITIALIZATION
 # =========================
 func _ready():
+	tile_map = get_tree().get_first_node_in_group("tilemap")
+	
+	if tile_map == null:
+		push_error("TileMap not found!")
 	grid_position = Vector2i(
 		floor(position.x / TILE_SIZE),
 		floor(position.y / TILE_SIZE)
@@ -36,6 +40,7 @@ func _ready():
 	)
 
 	prepare_grid()
+	print_grid()
 
 # =========================
 # BUILD GRID
@@ -60,7 +65,14 @@ func prepare_grid():
 			var tile_data = tile_map.get_cell_tile_data(0, cell_pos)
 			if tile_data:
 				grid[x][y] = tile_data.get_collision_polygons_count(0) > 0
-
+				
+func print_grid():
+	for y in range(grid[0].size()):
+		var row = ""
+		for x in range(grid.size()):
+			row += "1 " if grid[x][y] else "0 "
+		print(row)
+		
 # =========================
 # INPUT
 # =========================
@@ -99,7 +111,7 @@ func move_step(direction: Vector2i):
 
 	move_player(target)
 	if grid_position == enemy.grid_position:
-		print("lv cleared, you ate the enemy!")
+		print("you died")
 		get_tree().change_scene_to_file("res://scenes/levels_menu.tscn")
 # =========================
 # ACTUAL MOVEMENT

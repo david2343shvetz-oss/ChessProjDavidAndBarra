@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://c3fmgik15m3q0"]
 
-[ext_resource type="PackedScene" uid="uid://dw2fddr2qjdqf" path="res://scenes/lv_1.tscn" id="1_uwrxv"]
-[ext_resource type="Texture2D" uid="uid://bs3vhuugrk73n" path="res://Chess assests/TileSet/chess tileset.png" id="1_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://do7bguq8ixd5q" path="res://scenes/player.tscn" id="2_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://b8goapg35n6ji" path="res://scenes/enemy.tscn" id="3_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://bs3vhuugrk73n" path="res://Chess assests/TileSet/chess tileset.png" id="1_0cidj"]
+[ext_resource type="PackedScene" uid="uid://do7bguq8ixd5q" path="res://scenes/player.tscn" id="2_xsdx8"]
+[ext_resource type="PackedScene" uid="uid://b8goapg35n6ji" path="res://scenes/enemy.tscn" id="3_dbi3d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e2o6t"]
-texture = ExtResource("1_yqjtg")
+texture = ExtResource("1_0cidj")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -32,26 +31,22 @@ texture = ExtResource("1_yqjtg")
 physics_layer_0/collision_layer = 1
 sources/2 = SubResource("TileSetAtlasSource_e2o6t")
 
-[node name="Game" type="Node2D" unique_id=119198114]
+[node name="LV1" type="Node2D" unique_id=119198114]
 
-[node name="LV1" parent="." unique_id=994576124 instance=ExtResource("1_uwrxv")]
-
-[node name="TileMap" type="TileMap" parent="LV1" unique_id=1189711975]
+[node name="TileMap" type="TileMap" parent="." unique_id=1189711975 groups=["tilemap"]]
 tile_set = SubResource("TileSet_feb5d")
 format = 2
 layer_0/tile_data = PackedInt32Array(1, 65538, 1, 2, 65538, 1, 3, 65538, 1, 4, 65538, 1, 5, 65538, 1, 6, 65538, 1, 7, 65538, 1, 8, 65538, 1, 9, 131074, 1, 0, 2, 1, 65536, 2, 2, 131072, 2, 2, 196608, 2, 2, 262144, 2, 2, 327680, 2, 2, 393216, 2, 2, 458752, 2, 2, 524288, 2, 3, 524289, 65538, 3, 524290, 65538, 3, 524291, 65538, 3, 524292, 65538, 3, 524293, 65538, 3, 524294, 65538, 3, 524295, 65538, 3, 524296, 65538, 3, 524297, 131074, 3, 458761, 131074, 2, 393225, 131074, 2, 327689, 131074, 2, 262153, 131074, 2, 196617, 131074, 2, 131081, 131074, 2, 65545, 131074, 2, 458760, 65538, 0, 458758, 65538, 0, 458756, 65538, 0, 458754, 65538, 0, 393217, 65538, 0, 262145, 65538, 0, 131073, 65538, 0, 65538, 65538, 0, 65540, 65538, 0, 65542, 65538, 0, 65544, 65538, 0, 196616, 65538, 0, 327688, 65538, 0, 458759, 2, 0, 458757, 2, 0, 458755, 2, 0, 458753, 2, 0, 327681, 2, 0, 196609, 2, 0, 65537, 2, 0, 65539, 2, 0, 65541, 2, 0, 65543, 2, 0, 131080, 2, 0, 262152, 2, 0, 393224, 2, 0, 393223, 131074, 3, 393222, 65538, 3, 393221, 65538, 3, 393220, 65538, 3, 393219, 65538, 3, 393218, 2, 3, 327682, 2, 2, 196610, 2, 2, 262146, 2, 0, 262148, 2, 0, 262150, 2, 0, 262151, 65538, 0, 262147, 65538, 0, 131074, 2, 1, 131075, 65538, 1, 131076, 65538, 1, 131077, 65538, 1, 131078, 65538, 1, 131079, 131074, 1, 196615, 131074, 2, 327687, 131074, 2, 327686, 65538, 0, 327684, 65538, 0, 196614, 65538, 0, 196612, 65538, 0, 327685, 2, 0, 196613, 2, 0, 196611, 2, 0, 327683, 2, 0, 262149, 65538, 0)
 
-[node name="Camera2D" type="Camera2D" parent="LV1/TileMap" unique_id=1811482737]
+[node name="Player" parent="." unique_id=351367839 instance=ExtResource("2_xsdx8")]
+position = Vector2(88, 23)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1811482737]
 position = Vector2(88, 69)
 zoom = Vector2(4.34, 4.34)
 
-[node name="Player" parent="LV1" unique_id=351367839 instance=ExtResource("2_lnu2h")]
-position = Vector2(88, 23)
+[node name="Enemies" type="Node" parent="." unique_id=1115281240]
 
-[node name="Enemies" type="Node" parent="LV1" unique_id=1115281240]
-
-[node name="Enemy" parent="LV1/Enemies" unique_id=1872568917 instance=ExtResource("3_lnu2h")]
-position = Vector2(88, 119)
+[node name="Enemy" parent="Enemies" unique_id=1872568917 instance=ExtResource("3_dbi3d")]
+position = Vector2(88, 87)
 enemy_type = 1
-
-[node name="LV2" type="Node2D" parent="." unique_id=850004472]

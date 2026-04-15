@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://4852ofgxe1rk" path="res://Chess assests/Chess Pieces/black_rook.png" id="2_md0e3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
-size = Vector2(14, 18)
+size = Vector2(8, 12)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1872568917]
 script = ExtResource("1_md0e3")

@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bc0om7p4sfbgj"]
+
+[ext_resource type="Texture2D" uid="uid://bs3vhuugrk73n" path="res://Chess assests/TileSet/chess tileset.png" id="1_ik6ux"]
+[ext_resource type="PackedScene" uid="uid://do7bguq8ixd5q" path="res://scenes/player.tscn" id="2_1ms2c"]
+[ext_resource type="PackedScene" uid="uid://b8goapg35n6ji" path="res://scenes/enemy.tscn" id="3_mtyvp"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5tyom"]
+texture = ExtResource("1_ik6ux")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_rujiu"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_5tyom")
+
+[node name="LV2" type="Node2D" unique_id=234403303]
+
+[node name="TileMap" type="TileMap" parent="." unique_id=223781545 groups=["tilemap"]]
+position = Vector2(0, 16)
+tile_set = SubResource("TileSet_rujiu")
+format = 2
+layer_0/tile_data = PackedInt32Array(196612, 0, 0, 131075, 0, 0, 65538, 0, 0, 1, 0, 0, 262149, 0, 0, 327686, 0, 0, 393223, 0, 0, 458760, 0, 0, 262147, 0, 0, 196610, 0, 0, 131073, 0, 0, 327684, 0, 0, 393221, 0, 0, 458758, 0, 0, 458756, 0, 0, 393219, 0, 0, 327682, 0, 0, 262145, 0, 0, 458754, 0, 0, 393217, 0, 0, 327688, 0, 0, 262151, 0, 0, 196614, 0, 0, 131077, 0, 0, 65540, 0, 0, 3, 0, 0, 5, 0, 0, 65542, 0, 0, 131079, 0, 0, 196616, 0, 0, 262153, 0, 0, 393225, 0, 0, 131081, 0, 0, 65544, 0, 0, 7, 0, 0, 9, 0, 0, 8, 65536, 0, 6, 65536, 0, 4, 65536, 0, 2, 65536, 0, 65537, 65536, 0, 131074, 65536, 0, 196609, 65536, 0, 262146, 65536, 0, 327681, 65536, 0, 393218, 65536, 0, 458753, 65536, 0, 458755, 65536, 0, 393220, 65536, 0, 327683, 65536, 0, 262148, 65536, 0, 196611, 65536, 0, 131076, 65536, 0, 65539, 65536, 0, 65541, 65536, 0, 131078, 65536, 0, 196613, 65536, 0, 262150, 65536, 0, 327685, 65536, 0, 393222, 65536, 0, 458757, 65536, 0, 458759, 65536, 0, 393224, 65536, 0, 327687, 65536, 0, 262152, 65536, 0, 196615, 65536, 0, 131080, 65536, 0, 65543, 65536, 0, 65545, 65536, 0, 196617, 65536, 0, 327689, 65536, 0, 458761, 65536, 0, -65536, 0, 1, 524298, 131072, 3, 524297, 65536, 3, 524296, 65536, 3, 524295, 65536, 3, 524294, 65536, 3, 524293, 65536, 3, 524292, 65536, 3, 524291, 65536, 3, 524290, 65536, 3, 524289, 65536, 3, 524288, 0, 3, 458752, 0, 2, 393216, 0, 2, 327680, 0, 2, 262144, 0, 2, 196608, 0, 2, 131072, 0, 2, 65536, 0, 2, 0, 0, 2, -65535, 65536, 1, -65534, 65536, 1, -65533, 65536, 1, -65532, 65536, 1, -65531, 65536, 1, -65530, 65536, 1, -65529, 65536, 1, -65528, 65536, 1, -65527, 65536, 1, -65526, 131072, 1, 10, 131072, 2, 65546, 131072, 2, 131082, 131072, 2, 196618, 131072, 2, 262154, 131072, 2, 327690, 131072, 2, 393226, 131072, 2, 458762, 131072, 2)
+
+[node name="Player" parent="." unique_id=351367839 instance=ExtResource("2_1ms2c")]
+position = Vector2(88, 119)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1313163462]
+position = Vector2(88, 69)
+zoom = Vector2(3.465, 3.465)
+
+[node name="Enemies" type="Node" parent="." unique_id=1208252423]
+
+[node name="Enemy" parent="Enemies" unique_id=1872568917 instance=ExtResource("3_mtyvp")]
+position = Vector2(88, 40)
+enemy_type = 2

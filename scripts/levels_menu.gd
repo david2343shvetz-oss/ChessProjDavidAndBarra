@@ -12,10 +12,10 @@ func _process(_delta: float) -> void:
 
 
 func _on_lv1_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/Game.tscn")
+	get_tree().change_scene_to_file("res://scenes/LV1.tscn")
 	
 func _on_lv2_button_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://scenes/LV2.tscn")
 
 
 func _on_lv3_button_pressed() -> void:
