@@ -55,6 +55,7 @@ alignment = 1
 
 [node name="Button" type="Button" parent="BoxContainer" unique_id=1676303123]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -71,6 +72,7 @@ text = "Lv 1
 
 [node name="Button2" type="Button" parent="BoxContainer" unique_id=723919608]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -87,6 +89,7 @@ text = "Lv 2
 
 [node name="Button3" type="Button" parent="BoxContainer" unique_id=887865182]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -103,6 +106,7 @@ text = "Lv 3
 
 [node name="Button4" type="Button" parent="BoxContainer" unique_id=509267640]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -119,6 +123,7 @@ text = "Lv 4
 
 [node name="Button5" type="Button" parent="BoxContainer" unique_id=1849287582]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)

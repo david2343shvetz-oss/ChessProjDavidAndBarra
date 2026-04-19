@@ -48,5 +48,5 @@ zoom = Vector2(4.34, 4.34)
 [node name="Enemies" type="Node" parent="." unique_id=1115281240]
 
 [node name="Enemy" parent="Enemies" unique_id=1872568917 instance=ExtResource("3_dbi3d")]
-position = Vector2(88, 87)
-enemy_type = 1
+position = Vector2(88, 54)
+enemy_type = 4

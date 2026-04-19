@@ -113,35 +113,78 @@ func handle_enemy_movement():
 # =========================================================
 func get_path_to_player(available_directions):
 	var path = []
-	var current = grid_position
+	var path_position = grid_position
+	var last_position = grid_position
 
-	while current != player.grid_position:
-		var best_dir = Vector2i.ZERO
-		var best_pos = current
-
-		for dir in available_directions:
-			var result = get_target(current, dir, 1)
+	while path_position != player.grid_position:
+		var best_score = get_distance_to_player(path_position)
+		var best_direction = Vector2i.ZERO
+		var best_target = path_position
+		var i = 0
+		for direction in available_directions:
+			print(i)
+			var result = get_target(path_position, direction, 1)
 			if not result.success:
 				continue
 
 			var new_pos = result.target
+			var score = get_distance_to_player(new_pos)
 
-			if get_distance_to_player(new_pos) < get_distance_to_player(best_pos):
-				best_pos = new_pos
-				best_dir = dir
+			# Avoid going back
+			if new_pos == last_position:
+				score += 20
 
-		if best_dir == Vector2i.ZERO:
+			# Avoid invalid direction
+			if direction == Vector2i.ZERO:
+				score += 50
+
+			# Penalize wall situations
+			if is_stuck_on_wall():
+				score += 100
+				print("stuck")
+				#print(score)
+				#print(best_score)
+			if score < best_score:
+				best_score = score
+				best_direction = direction
+				best_target = new_pos
+			i +=1
+		# No valid move → stop
+		if best_direction == Vector2i.ZERO:
 			break
-		print(best_dir)
-		path.append(best_dir)
-		current = best_pos
-	print(path)
+
+		path.append(best_direction)
+		print("Added")
+		i = 0
+		last_position = path_position
+		path_position = best_target
+
 	return path
 
 
 # =========================================================
 # ENEMY MOVE RULES
 # =========================================================
+func is_stuck_on_wall() -> bool:
+	var second_result
+	var directions = [
+		Vector2i(1, 0),   # right
+		Vector2i(1, 1),   # down-right
+		Vector2i(0, 1),   # down
+		Vector2i(-1, 1),  # down-left
+		Vector2i(-1, 0),  # left
+		Vector2i(-1, -1), # up-left
+		Vector2i(0, -1),  # up
+		Vector2i(1, -1)   # up-right
+	]
+	for direction in directions:
+		var result = get_target(grid_position, direction, 1)
+		if not result.success:
+			second_result = get_target(result.target, direction, 1)
+			if second_result.target == player.grid_position:
+				return true
+	return false
+	
 func get_directions_for_type():
 	match enemy_type:
 
@@ -191,7 +234,27 @@ func get_directions_for_type():
 				Vector2i(0, -1)
 			]
 
+func is_near_wall(pos: Vector2i) -> bool:
+	var directions = [
+		Vector2i(1, 0),
+		Vector2i(-1, 0),
+		Vector2i(0, 1),
+		Vector2i(0, -1)
+	]
 
+	for dir in directions:
+		var check = pos + dir
+
+		if check.x < 0 or check.y < 0:
+			return true
+
+		if check.x >= grid.size() or check.y >= grid[0].size():
+			return true
+
+		if grid[check.x][check.y] == true:
+			return true
+
+	return false
 # =========================================================
 # SLIDING PIECES OPTIMIZATION
 # =========================================================
@@ -279,15 +342,15 @@ func get_target(origin, direction: Vector2i, distance):
 	var target = origin + direction * distance
 
 	if grid.is_empty():
-		return {"success": false}
+		return {"success": false, "target": target}
 
 	if target.x < 0 or target.y < 0:
-		return {"success": false}
+		return {"success": false, "target": target}
 
 	if target.x >= grid.size() or target.y >= grid[0].size():
-		return {"success": false}
+		return {"success": false, "target": target}
 
 	if grid[target.x][target.y]:
-		return {"success": false}
+		return {"success": false, "target": target}
 
 	return {"success": true, "target": target}

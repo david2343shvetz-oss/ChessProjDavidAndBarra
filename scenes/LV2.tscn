@@ -50,4 +50,4 @@ zoom = Vector2(3.465, 3.465)
 
 [node name="Enemy" parent="Enemies" unique_id=1872568917 instance=ExtResource("3_mtyvp")]
 position = Vector2(88, 40)
-enemy_type = 2
+enemy_type = 1

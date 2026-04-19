@@ -15,7 +15,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
-size = Vector2(12, 16)
+size = Vector2(6, 8)
 
 [node name="Player" type="CharacterBody2D" unique_id=351367839]
 script = ExtResource("1_g2els")
@@ -26,5 +26,8 @@ scale = Vector2(0.86111116, 0.86111116)
 sprite_frames = SubResource("SpriteFrames_qhqgy")
 animation = &"new_animation"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2088363048]
+[node name="Area2D" type="Area2D" parent="." unique_id=1552140639]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2088363048]
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_g2els")

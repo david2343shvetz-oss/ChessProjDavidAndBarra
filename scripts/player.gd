@@ -11,18 +11,21 @@ const MOVE_TIME = 0.2   # how long the movement animation takes
 # =========================
 var tile_map: TileMap
 @onready var enemy: CharacterBody2D = $"../Enemies/Enemy"
-
+@onready var area = $Area2D
 # =========================
 # STATE
 # =========================
 var can_move := true
 var grid_position: Vector2i
 var grid = []
+var is_dead = false
 
 # =========================
 # INITIALIZATION
 # =========================
 func _ready():
+	# intialize collision with enemy
+	area.body_entered.connect(_on_area_2d_body_entered)
 	tile_map = get_tree().get_first_node_in_group("tilemap")
 	
 	if tile_map == null:
@@ -89,7 +92,8 @@ func _physics_process(_delta: float) -> void:
 		direction.y += 1
 	if Input.is_action_pressed("up"):
 		direction.y -= 1
-
+		
+			
 	# move to input direction
 	if direction != Vector2i.ZERO:
 		move_step(direction)
@@ -110,9 +114,6 @@ func move_step(direction: Vector2i):
 		return
 
 	move_player(target)
-	if grid_position == enemy.grid_position:
-		print("you died")
-		get_tree().change_scene_to_file("res://scenes/levels_menu.tscn")
 # =========================
 # ACTUAL MOVEMENT
 # =========================
@@ -134,3 +135,17 @@ func move_player(target: Vector2i):
 	
 	await tween.finished
 	can_move = true
+# =========================
+# HELPER FUNCS
+# =========================
+func _on_area_2d_body_entered(body):
+	if body == enemy and not is_dead:
+		# body.call_deferred()
+		die()
+func die():
+	if is_dead:
+		return 
+	is_dead = true
+	print("You died")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/levels_menu.tscn")
+	
