@@ -19,7 +19,8 @@ func _on_lv2_button_pressed() -> void:
 
 
 func _on_lv3_button_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://scenes/LV3.tscn")
+
 
 
 func _on_lv4_button_pressed() -> void:

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bvcw44rsj5nkd"]
+
+[ext_resource type="Texture2D" uid="uid://bs3vhuugrk73n" path="res://Chess assests/TileSet/chess tileset.png" id="1_bk4cs"]
+[ext_resource type="PackedScene" uid="uid://b8goapg35n6ji" path="res://scenes/enemy.tscn" id="2_286qh"]
+[ext_resource type="PackedScene" uid="uid://do7bguq8ixd5q" path="res://scenes/player.tscn" id="3_7swnl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8eo3q"]
+texture = ExtResource("1_bk4cs")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_yej25"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_8eo3q")
+
+[node name="LV3" type="Node2D" unique_id=499044180]
+
+[node name="TileMap" type="TileMap" parent="." unique_id=519130310 groups=["tilemap"]]
+tile_set = SubResource("TileSet_yej25")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 1, 1, 65536, 1, 2, 65536, 1, 3, 65536, 1, 4, 65536, 1, 5, 65536, 1, 6, 65536, 1, 7, 65536, 1, 8, 131072, 1, 65544, 131072, 2, 131080, 131072, 1, 196616, 131072, 2, 262152, 131072, 2, 327688, 131072, 2, 393224, 131072, 2, 458760, 131072, 3, 458759, 65536, 3, 458758, 65536, 3, 458757, 65536, 3, 458756, 65536, 3, 458755, 65536, 3, 458754, 65536, 3, 458753, 65536, 3, 458752, 0, 3, 393216, 0, 2, 327680, 0, 2, 262144, 0, 2, 196608, 0, 2, 131072, 0, 2, 65536, 0, 2, 393223, 65536, 0, 327686, 0, 2, 262149, 65536, 0, 196612, 131072, 0, 65538, 65536, 0, 65540, 65536, 0, 131077, 65536, 0, 196614, 0, 2, 262151, 65536, 0, 131079, 65536, 1, 65542, 65536, 0, 196610, 131072, 0, 262147, 131072, 0, 327684, 65536, 0, 393221, 65536, 0, 393219, 65536, 0, 327682, 131072, 0, 262145, 65536, 0, 393217, 65536, 0, 393218, 0, 0, 327681, 0, 0, 262146, 0, 0, 196611, 131072, 0, 65541, 0, 0, 65543, 0, 0, 131078, 0, 1, 196613, 0, 0, 262148, 0, 0, 327683, 131072, 0, 393220, 0, 0, 196609, 0, 0, 131074, 131072, 0, 65537, 0, 0, 65539, 0, 0, 196615, 0, 0, 262150, 0, 2, 327687, 0, 0, 393222, 0, 0, 327685, 131072, 0, 131073, 65536, 0, 131075, 65536, 0, 131076, 0, 0)
+
+[node name="Player" parent="." unique_id=351367839 instance=ExtResource("3_7swnl")]
+position = Vector2(24, 24)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=961913114]
+position = Vector2(74, 57)
+zoom = Vector2(4, 4)
+
+[node name="Enemies" type="Node" parent="." unique_id=186916712]
+
+[node name="Enemy" parent="Enemies" unique_id=1872568917 instance=ExtResource("2_286qh")]
+position = Vector2(120, 103)
+enemy_type = 1

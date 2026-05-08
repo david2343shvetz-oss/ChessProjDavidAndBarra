@@ -112,59 +112,153 @@ func handle_enemy_movement():
 # PATHFINDING
 # =========================================================
 func get_path_to_player(available_directions):
-	var path = []
-	var path_position = grid_position
-	var last_position = grid_position
-
-	while path_position != player.grid_position:
-		var best_score = get_distance_to_player(path_position)
-		var best_direction = Vector2i.ZERO
-		var best_target = path_position
-		var i = 0
+	# A list of positions we still need to explore
+	# Each entry is [f_score, position] — lowest f_score gets explored first
+	var open = []
+	
+	# Dictionary that remembers "how did we get to this position?"
+	# came_from[B] = A means "we reached B by coming from A"
+	var came_from = {}
+	
+	# Dictionary tracking how many steps it took to reach each position
+	# We start at our own position with 0 steps taken
+	var g_score = { grid_position: 0 }
+	
+	# Add our starting position to the open list
+	# f_score at the start is just the raw distance to the player (0 steps taken so far)
+	open.append([get_distance_to_player(grid_position), grid_position])
+	
+	# Keep looping as long as there are positions left to explore
+	while open.size() > 0:
+		
+		# Sort the open list so the lowest f_score (most promising) is at the front
+		open.sort()
+		
+		# Grab the most promising position to explore next
+		# pop_front() removes and returns the first entry, [1] gets the position (index 0 is the score)
+		var current = open.pop_front()[1]
+		
+		# If the position we're looking at IS the player, we found the path!
+		if current == player.grid_position:
+			var path = []
+			var node = current
+			
+			# Walk backwards through came_from to reconstruct the path
+			# We go from the player's position back to our starting position
+			while came_from.has(node):
+				var prev = came_from[node]
+				
+				# The direction of this step is current - previous
+				# e.g. (3,2) - (2,2) = (1,0) which means "moved right"
+				# push_front adds to the beginning so directions stay in the right order
+				path.push_front(node - prev)
+				
+				# Move one step further back
+				node = prev
+			
+			return path
+		# Try every possible direction from the current position
 		for direction in available_directions:
-			print(i)
-			var result = get_target(path_position, direction, 1)
+			
+			# Skip the "no movement" direction
+			if direction == Vector2i.ZERO:
+					continue
+				
+				# Check if moving this direction is actually valid (not a wall etc.)
+			var result = get_target(current, direction, 1)
+				
+				# If the move is blocked, skip this direction
 			if not result.success:
 				continue
+				
+				# This is the position we'd land on
+			var neighbor = result.target
+				
+				# How many steps would it take to reach this neighbor?
+				# It's however many steps to reach current, plus 1 more
+			var tentative_g = g_score[current] + 1
+				
+				# Only update this neighbor if:
+				# - we've never visited it before, OR
+				# - we just found a shorter way to reach it
+			if not g_score.has(neighbor) or tentative_g < g_score[neighbor]:
+					
+					# Record the step count to reach this neighbor
+				g_score[neighbor] = tentative_g
+					
+					# Record that we reached this neighbor from current
+				came_from[neighbor] = current
+					
+					# f = steps taken so far + estimated steps remaining
+				var f = tentative_g + get_distance_to_player(neighbor)
+					
+				open.append([f, neighbor])
+	
+	# If we emptied the open list and never reached the player,
+	# there is no valid path — return empty
+	return []
+			
+			
+			
+			
+			
+			
+#func get_path_to_player(available_directions):
+	#var path = []
+	#var path_position = grid_position
+	#var last_position = grid_position
+#
+	#while path_position != player.grid_position:
+		#var best_score = get_distance_to_player(path_position)
+		#var best_direction = Vector2i.ZERO
+		#var best_target = path_position
+		#var i = 0
+		#for direction in available_directions:
+			#print(i)
+			#var result = get_target(path_position, direction, 1)
+			#if not result.success:
+				#continue
+#
+			#var new_pos = result.target
+			#var score = get_distance_to_player(new_pos)
+#
+			## Avoid going back
+			#if new_pos == last_position:
+				#print("back")
+				#score += 30
+#
+			## Avoid invalid direction
+			#if direction == Vector2i.ZERO:
+				#score += 50
+#
+			## Penalize wall situations
+			#if is_stuck_on_wall():
+				#score += 100
+				#print("stuck")
+				##print(score)
+				##print(best_score)
+			#if score < best_score:
+				#best_score = score
+				#best_direction = direction
+				#best_target = new_pos
+			#i +=1
+		## No valid move → stop
+		#if best_direction == Vector2i.ZERO:
+			#break
 
-			var new_pos = result.target
-			var score = get_distance_to_player(new_pos)
-
-			# Avoid going back
-			if new_pos == last_position:
-				score += 20
-
-			# Avoid invalid direction
-			if direction == Vector2i.ZERO:
-				score += 50
-
-			# Penalize wall situations
-			if is_stuck_on_wall():
-				score += 100
-				print("stuck")
-				#print(score)
-				#print(best_score)
-			if score < best_score:
-				best_score = score
-				best_direction = direction
-				best_target = new_pos
-			i +=1
-		# No valid move → stop
-		if best_direction == Vector2i.ZERO:
-			break
-
-		path.append(best_direction)
-		print("Added")
-		i = 0
-		last_position = path_position
-		path_position = best_target
-
-	return path
+		#path.append(best_direction)
+		#print("Added")
+		#i = 0
+		#last_position = path_position
+		#path_position = best_target
+#
+	#return path
 
 
 # =========================================================
 # ENEMY MOVE RULES
 # =========================================================
+# unused func
 func is_stuck_on_wall() -> bool:
 	var second_result
 	var directions = [
@@ -233,7 +327,7 @@ func get_directions_for_type():
 				Vector2i(0, 1),
 				Vector2i(0, -1)
 			]
-
+# unused func so far
 func is_near_wall(pos: Vector2i) -> bool:
 	var directions = [
 		Vector2i(1, 0),
